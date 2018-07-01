@@ -17,7 +17,16 @@ export default class AScreen extends Component {
                
                 this.props.history.push('/b',{a:1});
             }}
-            
+            //aaaaaaaaaaaaaaaaaaaaaaaa
+            //aaaaaaaaaaaaaaaaaaaaaaaa
+            //aaaaaaaaaaaaaaaaaaaaaaaa
+            //aaaaaaaaaaaaaaaaaaaaaaaa
+            //aaaaaaaaaaaaaaaaaaaaaaaa
+            //aaaaaaaaaaaaaaaaaaaaaaaa
+            //aaaaaaaaaaaaaaaaaaaaaaaa
+            //aaaaaaaaaaaaaaaaaaaaaaaa
+            //aaaaaaaaaaaaaaaaaaaaaaaa
+            //aaaaaaaaaaaaaaaaaaaaaaaa
         >toB</p>
         
       </div>
