@@ -14,6 +14,7 @@ export default class AScreen extends Component {
                         a:1
                     }
                 }
+                console.log(aaaaa);
                 this.props.history.push('/b',{a:1});
             }}
             
