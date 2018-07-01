@@ -10,7 +10,14 @@ export default class BScreen extends Component {
                 this.props.history.goBack();
             }}
         >goBack</p>
-      </div>
+
+
+<p>BScreen</p>
+        <p
+            onClick={()=>{
+                this.props.history.goBack();
+            }}
+        >goBack</p>      </div>
     )
   }
 }
