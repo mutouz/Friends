@@ -8,67 +8,64 @@ import {
     updateUserUrl
 } from './UrlConfig'
 class UserData {
-    async register(username,password){
+    async register(email, password) {
         try {
-            const user={username,password}
-            const relust=await fetch(registerUrl,{
-                method:'POST',
-                headers:{
-                    'Accept':'application/json',
-                    'Content-Type':'application/json'
+            const user = { email, password }
+            const relust = await fetch(registerUrl, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
                 },
-                body:JSON.stringify(user)
+                body: JSON.stringify(user)
             });
-            const res=await relust.json();
-            if(res.data.success){
-              localStorage.access_token=res.data.access_token;
+            const res = await relust.json();
+            if (res.data.success) {
+                localStorage.access_token = res.data.access_token;
             }
             return res;
         } catch (error) {
             return {
-                success:false,
-                errorMessage:'网络错误'
+                success: false,
+                errorMessage: '网络错误'
             }
         }
     }
-    async login(username,password){
+    async login(email, password) {
         try {
-            const user={username,password}
-            const relust=await fetch(loginURL,{
-                method:'POST',
-                headers:{
-                    'Accept':'application/json',
-                    'Content-Type':'application/json'
+            const user = { email, password }
+            const relust = await fetch(loginUrl, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
                 },
-                body:JSON.stringify(user)
+                body: JSON.stringify(user)
             });
-            const res=await relust.json();
+            const res = await relust.json();
             console.log(res)
-            if(res.success){
-              localStorage.access_token=res.data.access_token;
+            if (res.success) {
+                localStorage.access_token = res.data.access_token;
             }
             return res;
         } catch (error) {
             return {
-                success:false,
-                errorMessage:'网络错误'
+                success: false,
+                errorMessage: '网络错误'
             }
         }
     }
     //取消denglu
-    tokenOut(){
-        localStorage.access_token="";
+    tokenOut() {
+        localStorage.access_token = "";
     }
     //判断是否登陆
-    ifToken(){
-        if (localStorage.access_token=="") {
+    ifToken() {
+        if (localStorage.access_token == "") {
             return false;
         }
         return true;
     }
-    //修改密码
-    async changePassword(){
-    
-    }
-    }
+
+}
 export default new UserData();
