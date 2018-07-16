@@ -68,6 +68,7 @@ export default class HomeMessageScreen extends Component {
     }
   render() {
     return (
+        //主页面进行信息的展示
       <div>
           <NavBar
             mode="dark"
