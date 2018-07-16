@@ -8,7 +8,7 @@ class MessageData{
     async postMessage(content,images){
         try {
             const formData=new FormData();
-            formData.append('access_token','020ebb72fceb121b61974d65855c51a2');
+            formData.append('access_token','1a8ec8f0f29b9599ad25ebbe3bd7bdf6');
             formData.append('content',content);
             images.map((item,index)=>{
                 return formData.append('image${index}',item.file);
@@ -31,7 +31,7 @@ class MessageData{
     async deleteMessage(id){
         try {
             const deleteM={
-                access_token:'020ebb72fceb121b61974d65855c51a2',
+                access_token:'1a8ec8f0f29b9599ad25ebbe3bd7bdf6',
                 id,
             }
             const res=await fetch(deleteMessageUrl,{
@@ -55,7 +55,7 @@ class MessageData{
     async getMessages(userId,minId){
         try {
             const get={
-                access_token:'020ebb72fceb121b61974d65855c51a2',
+                access_token:'1a8ec8f0f29b9599ad25ebbe3bd7bdf6',
                 userId,
                 minId,
             }
@@ -80,7 +80,7 @@ class MessageData{
     async homeMessage(minId){
         try {
             const messages={
-                access_token:'020ebb72fceb121b61974d65855c51a2',
+                access_token:'1a8ec8f0f29b9599ad25ebbe3bd7bdf6',
                 minId
             }
             const res=await fetch(homeMessageUrl,{

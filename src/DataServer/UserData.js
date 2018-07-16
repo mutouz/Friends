@@ -86,7 +86,7 @@ class UserData {
     async changePassword(old_password,new_password){
         try {
             const access_token = localStorage.access_token;
-            const res = await axios.post(changePasswordUrl,{
+            const res = await fetch(changePasswordUrl,{
                 access_token,
                 old_password,
                 new_password
@@ -119,8 +119,8 @@ class UserData {
                 formData.append('files',userInfo.files);
             }
 
-            const res = await axios({
-                url:updateUserUrl,
+            const res = await fetch(updateUserUrl,{
+             
                 method:'POST',
                 data:formData,
                 headers: {'Content-Type': 'multipart/form-data'}
@@ -138,7 +138,7 @@ class UserData {
     async getUserInfo(userId = 0){
         try {
             const access_token = localStorage.access_token;
-            const res = await axios.post(getUserUrl,{
+            const res = await fetch(getUserUrl,{
                 access_token,
                 userId
             })
