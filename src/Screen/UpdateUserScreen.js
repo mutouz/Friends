@@ -25,6 +25,7 @@ export default class UpdateUserScreen extends Component {
             Toast.fail(result.errorMessage,1);
             return;
         }
+        this.setState({nickname:result.data.nickname,sign:result.data.sign})
         
     }
 
@@ -51,7 +52,7 @@ export default class UpdateUserScreen extends Component {
             <ImagePicker
                 files={this.state.files}
                 onChange={(files)=>{this.setState({files})}}
-                selectable={this.state.files.length <= 1}
+                selectable={this.state.files.length < 1}
             />
         </WingBlank>
 
