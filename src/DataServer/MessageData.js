@@ -52,10 +52,12 @@ class MessageData{
         }
     }
     //得到信息
-    async getMessages(){
+    async getMessages(userId,minId){
         try {
             const get={
                 access_token:'020ebb72fceb121b61974d65855c51a2',
+                userId,
+                minId,
             }
             const res=await fetch(getMessageUrl,{
                 method:'POST',
@@ -75,10 +77,11 @@ class MessageData{
         }
     }
 
-    async homeMessage(){
+    async homeMessage(minId){
         try {
             const messages={
                 access_token:'020ebb72fceb121b61974d65855c51a2',
+                minId
             }
             const res=await fetch(homeMessageUrl,{
                 method:'POST',
