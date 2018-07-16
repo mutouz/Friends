@@ -27,12 +27,12 @@ class MessageData{
             }
         }
     }
-
-    async deleteMessage(id){
+    //删除
+    async deleteMessage(messageId){
         try {
             const deleteM={
                 access_token:localStorage.access_token,
-                id,
+                messageId,
             }
             const res=await fetch(deleteMessageUrl,{
                 method:'POST',

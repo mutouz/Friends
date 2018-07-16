@@ -66,6 +66,37 @@ export default class HomeMessageScreen extends Component {
             this.setState({refreshing:false});
         }
     }
+    //删除
+    onDel = async (messageId) => {
+        try {
+            Toast.loading('操作中', 0);
+            const result = await MessageData.deleteMessage(messageId);
+            console.log(22222222222222)
+            console.log(result)
+            if (result.success == false) {
+                Toast.fail(result.errorMessage);
+                if (result.errorCode === 10004) {
+                    this.props.history.replace('/');
+                }
+                console.log(this.state.result)
+                return;
+            }
+            const result1 = await MessageData.homeMessage();
+            this.setState((preState) => {
+                return {
+                    dataSource: preState.dataSource.cloneWithRows(result1.data),
+                    refreshing: false
+                }
+            },()=>{
+                Toast.hide(); 
+            })
+        } catch (error) {
+            Toast.fail(`${error}`);
+            this.setState({ refreshing: false });
+        }
+
+
+    }
   render() {
     return (
         //主页面进行信息的展示
@@ -114,7 +145,7 @@ export default class HomeMessageScreen extends Component {
       return(
           <HomeMessageList
             {...messages}
-            
+            del={this.onDel}
           />
       )
   }
