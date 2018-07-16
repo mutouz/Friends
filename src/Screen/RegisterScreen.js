@@ -10,7 +10,7 @@ import {
     InputItem,
     Icon
 } from 'antd-mobile';
-import userData from '../DataServer/userData';
+import userData from '../DataServer/UserData';
 export default class RegisterScreen extends Component {
     
     constructor(props) {

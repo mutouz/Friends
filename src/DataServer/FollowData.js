@@ -11,7 +11,7 @@ class FollowData {
    ///
     async findUser( nickname) {
         try {
-            const user = { access_token:'1a8ec8f0f29b9599ad25ebbe3bd7bdf6', nickname };
+            const user = { access_token:localStorage.access_token, nickname };
             const relust = await fetch(findUserUrl, {
                 method: 'POST',
                 headers: {
@@ -34,7 +34,7 @@ class FollowData {
     async followUser( userId) {
         try {
            // const user = { access_token:localStorage.access_token, userId };
-            const user = { access_token:'1a8ec8f0f29b9599ad25ebbe3bd7bdf6', userId };
+            const user = { access_token:localStorage.access_token, userId };
             const relust = await fetch(followUrl, {
                 method: 'POST',
                 headers: {
@@ -57,7 +57,7 @@ class FollowData {
     async unFollowUser( userId) {
         try {
            // const user = { access_token:localStorage.access_token, userId };
-            const user = { access_token:'1a8ec8f0f29b9599ad25ebbe3bd7bdf6', userId };
+            const user = { access_token:localStorage.access_token, userId };
             const relust = await fetch(unFollowURL, {
                 method: 'POST',
                 headers: {
@@ -79,7 +79,7 @@ class FollowData {
     //获取好友列表
     async getFollow() {
         try {
-            const user = { access_token:"1a8ec8f0f29b9599ad25ebbe3bd7bdf6" };
+            const user = { access_token:localStorage.access_token };
             const relust = await fetch(getFollowUrl, {
                 method: 'POST',
                 headers: {

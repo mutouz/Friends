@@ -12,7 +12,7 @@ import {
     ImagePicker,
     Modal
 } from 'antd-mobile';
-import userData from '../DataServer/userData';
+import userData from '../DataServer/UserData';
 
 import MessageData from '../DataServer/MessageData';
 
@@ -82,7 +82,7 @@ export default class RegisterScreen extends Component {
                     }
                     Modal.alert('成功','点击确认键进入主页',[{
                         text:'确认',
-                        onPress:()=>{this.props.history.replace('')}
+                        onPress:()=>{this.props.history.replace('/TabBarDisplay')}
                     }])
                     
                 }}

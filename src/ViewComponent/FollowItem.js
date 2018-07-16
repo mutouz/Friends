@@ -48,6 +48,7 @@ export default class FollowItem extends Component {
                         title={this.props.nickname}
                         thumb={imgUrl+this.props.image}
                         extra={this.props.sign}
+                        thumbStyle={{width:'40px',height:'40px'}}   
                     
                     />
              </div>

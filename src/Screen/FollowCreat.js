@@ -64,7 +64,7 @@ export default class FollowCreate extends Component {
             }
           else{
             Toast.fail("关注成功");
-            this.props.history.push('/FollowHome');
+            this.props.history.push('/TabBarDisplay');
           }
         } catch (error) {
             Toast.fail(`${error}`);

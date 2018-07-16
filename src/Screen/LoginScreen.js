@@ -10,7 +10,7 @@ import {
     InputItem,
 } from 'antd-mobile';
 
-import userData from '../DataServer/userData';
+import userData from '../DataServer/UserData';
 
 
 
@@ -63,7 +63,7 @@ export default class LoginScreen extends Component {
                         Toast.fail(result.errorMessage,1);
                         return;
                     }
-                    this.props.history.replace('/HomeScreen');
+                    this.props.history.replace('/TabBarDisplay');
                 }}
             >
                 登录
