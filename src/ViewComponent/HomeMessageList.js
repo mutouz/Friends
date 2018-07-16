@@ -21,6 +21,7 @@ export default class HomeMessageList extends Component {
           }
       })
     return (
+        //删除信息
     <SwipeAction
         autoClose={true}
         right={[

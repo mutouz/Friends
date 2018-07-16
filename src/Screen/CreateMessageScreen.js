@@ -26,6 +26,7 @@ export default class CreateMessageScreen extends Component {
     
   render() {
     return (
+      //发布朋友圈页面
       <div>
           <NavBar
             mode="dark"
