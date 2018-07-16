@@ -8,22 +8,30 @@ import {
     updateUserUrl
 } from './UrlConfig'
 class UserData {
-    async register(email, password) {
+    async register(email,password){
         try {
-            const user = { email, password }
-            const relust = await fetch(registerUrl, {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
+            const user = {
+                email,
+                password
+            }
+
+            const res = await fetch(registerUrl,{
+                method:'POST',
+                headers:{
+                    'Accept':'application/json',
+                    'Content-Type':'application/json'
                 },
                 body: JSON.stringify(user)
             });
-            const res = await relust.json();
-            if (res.data.success) {
-                localStorage.access_token = res.data.access_token;
+
+            const result = await res.json();
+
+            if(result.success === true){
+                localStorage.access_token = result.data.access_token 
             }
-            return res;
+
+            return result;
+
         } catch (error) {
             return {
                 success: false,
@@ -31,23 +39,30 @@ class UserData {
             }
         }
     }
-    async login(email, password) {
+    async login(email,password){
         try {
-            const user = { email, password }
-            const relust = await fetch(loginUrl, {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
+            const user = {
+                email,
+                password
+            }
+
+            const res = await fetch(loginUrl,{
+                method:'POST',
+                headers:{
+                    'Accept':'application/json',
+                    'Content-Type':'application/json'
                 },
                 body: JSON.stringify(user)
             });
-            const res = await relust.json();
-            console.log(res)
-            if (res.success) {
-                localStorage.access_token = res.data.access_token;
+
+            const result = await res.json();
+
+            if(result.success === true){
+                localStorage.access_token = result.data.access_token 
             }
-            return res;
+
+            return result;
+
         } catch (error) {
             return {
                 success: false,
@@ -55,17 +70,87 @@ class UserData {
             }
         }
     }
+
     //取消denglu
     tokenOut() {
         localStorage.access_token = "";
     }
     //判断是否登陆
-    ifToken() {
-        if (localStorage.access_token == "") {
+    ifToken(){
+        if (localStorage.access_token==""|| !localStorage.access_token) {
             return false;
         }
         return true;
     }
+    //修改密码
+    async changePassword(old_password,new_password){
+        try {
+            const access_token = localStorage.access_token;
+            const res = await axios.post(changePasswordUrl,{
+                access_token,
+                old_password,
+                new_password
+            });
+            const result = res.data;
+            return result;
+        } catch (error) {
+            return {
+                success:false,
+                errorMessage:'网络错误'
+            }
+        }
+        
+    }
 
+    
+
+    async updateUser(userInfo){
+        try {
+            const access_token = localStorage.access_token;
+            const formData = new FormData();
+            formData.append('access_token',access_token);
+            if (userInfo.nickname) {
+                formData.append('nickname',userInfo.nickname);
+            }
+            if (userInfo.sign) {
+                formData.append('sign',userInfo.sign);
+            }
+            if (userInfo.files) {
+                formData.append('files',userInfo.files);
+            }
+
+            const res = await axios({
+                url:updateUserUrl,
+                method:'POST',
+                data:formData,
+                headers: {'Content-Type': 'multipart/form-data'}
+            })
+            return res.data;
+
+        } catch (error) {
+            return {
+                success:false,
+                errorMessage:'网络错误'
+            }
+        }
+    }
+
+    async getUserInfo(userId = 0){
+        try {
+            const access_token = localStorage.access_token;
+            const res = await axios.post(getUserUrl,{
+                access_token,
+                userId
+            })
+            return res.data;
+        } catch (error) {
+            return {
+                success:false,
+                errorMessage:'网络错误'
+            }
+        }
+    }
+    
 }
+
 export default new UserData();
