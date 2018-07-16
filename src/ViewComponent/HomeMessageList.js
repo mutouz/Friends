@@ -43,9 +43,8 @@ export default class HomeMessageList extends Component {
         <Card>
             <Card.Header
             title={this.props.user.nickname}
-            
-             thumb={imgUrl+this.props.user.image}
-               
+            thumb={imgUrl+this.props.user.image}
+            thumbStyle={{width:'40px',height:'40px'}}   
             />
             <Card.Body>
                 <span id='content'> 
@@ -67,7 +66,7 @@ export default class HomeMessageList extends Component {
                 />
             </Card.Body>
             <Card.Footer
-                extra={moment(this.props.createdAt).format('YYYY-MM-DD HH:mm')}
+                content={moment(this.props.createdAt).format('YYYY-MM-DD HH:mm')}
             />
         </Card>
       </WingBlank>
