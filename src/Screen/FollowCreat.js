@@ -22,7 +22,7 @@ export default class FollowCreate extends Component {
         //     this.props.history.replace('/');
         // }
         ///////////////////////////////////
-        /////得到传过来的id
+        /////得到传过来的id获取好友信息
         const result = await MessageData.getMessages(this.props.match.params.id);
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         if (!result.success) {
@@ -45,7 +45,8 @@ export default class FollowCreate extends Component {
         })
         //1.定义一个容器
         this.state = {
-            dataSource
+            dataSource,
+            refreshing:false,
         }
     }
     //关注
@@ -72,6 +73,30 @@ export default class FollowCreate extends Component {
            // Toast.fail("关注成功");
           // this.props.history.push('/TabBarDisplay')
           }
+        } catch (error) {
+            Toast.fail(`${error}`);
+            this.setState({refreshing:false});
+        }
+    }
+    //下拉刷新
+    onRefresh =async()=>{
+        try {
+            this.setState({refreshing:true});
+            const result=await MessageData.getMessages(this.props.match.params.id);
+            this.setState({refreshing:false});
+            if(result.success===false){
+                Toast.fail(result.errorMessage);
+                if(result.errorCode===10004){
+                    this.props.history.replace('/');
+                }
+                return;
+            }
+            this.setState((preState)=>{
+                return{
+                    dataSource:preState.dataSource.cloneWithRows(result.data),
+                    refreshing:false
+                }
+            })
         } catch (error) {
             Toast.fail(`${error}`);
             this.setState({refreshing:false});
