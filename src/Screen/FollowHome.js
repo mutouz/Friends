@@ -8,7 +8,8 @@ import {
     WingBlank,
     InputItem,
     Toast,
-    SearchBar
+    SearchBar,
+    PullToRefresh
 } from 'antd-mobile'
 //导入要用的
 import FollowData from '../DataServer/FollowData'
@@ -45,6 +46,7 @@ export default class FllowHome extends Component {
             dataSource,
             nickname:'',
             isSearchData:false,
+            refreshing:false,
         }
     }
     //取消关注
@@ -96,7 +98,7 @@ export default class FllowHome extends Component {
         })
 
     }
-    //点击取消时触发
+    //(查询框)点击取消时触发
     onCancel=async()=>{
         this.setState({
             nickname:'',
@@ -112,6 +114,30 @@ export default class FllowHome extends Component {
                 dataSource:preState.dataSource.cloneWithRows(result.data)
             }   
         })
+    }
+    //下拉刷新
+    onRefresh =async()=>{
+        try {
+            this.setState({refreshing:true});
+            const result=await FollowData.getFollow();
+            this.setState({refreshing:false});
+            if(result.success===false){
+                Toast.fail(result.errorMessage);
+                if(result.errorCode===10004){
+                    this.props.history.replace('/');
+                }
+                return;
+            }
+            this.setState((preState)=>{
+                return{
+                    dataSource:preState.dataSource.cloneWithRows(result.data),
+                    refreshing:false
+                }
+            })
+        } catch (error) {
+            Toast.fail(`${error}`);
+            this.setState({refreshing:false});
+        }
     }
     render() {
         return (
@@ -135,6 +161,12 @@ export default class FllowHome extends Component {
          <ListView
             useBodyScroll={true}
             dataSource={this.state.dataSource}//得到数据
+            pullToRefresh={//刷新方法
+                <PullToRefresh
+                    refreshing={this.state.refreshing}
+                    onRefresh={this.onRefresh}
+                />
+            }
             renderRow={(todo) => {
                 console.log(todo)
                 return (

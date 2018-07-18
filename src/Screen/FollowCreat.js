@@ -8,6 +8,7 @@ import {
     WingBlank,
     InputItem,
     Toast,
+    Modal,
     PullToRefresh
 } from 'antd-mobile'
 import UserData from '../DataServer/UserData'
@@ -17,10 +18,18 @@ import FollowCreateItem from '../ViewComponent/FollowCreateItem'
 export default class FollowCreate extends Component {
     async  componentWillMount() {
         console.log(UserData.ifToken());
+<<<<<<< HEAD
         if (!UserData.ifToken()) {
             this.props.history.replace('/');
         }
         
+=======
+        // if (!UserData.ifToken()) {
+        //     this.props.history.replace('/');
+        // }
+        ///////////////////////////////////
+        /////得到传过来的id获取好友信息
+>>>>>>> b6f13b465ca1c59f0949e69d9ddf95012a5b5df8
         const result = await MessageData.getMessages(this.props.match.params.id);
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         if (!result.success) {
@@ -43,9 +52,11 @@ export default class FollowCreate extends Component {
         })
         //1.定义一个容器
         this.state = {
-            dataSource
+            dataSource,
+            refreshing:false,
         }
     }
+    //关注
     onFollow=async()=>{
         try {
              ///////////////////////////////////
@@ -62,9 +73,37 @@ export default class FollowCreate extends Component {
                 return;
             }
           else{
-            Toast.fail("关注成功");
-            this.props.history.push('/TabBarDisplay');
+            Modal.alert('关注成功','点击确认键返回',[{
+                text:'确认',
+                onPress:()=>{this.props.history.goBack()}
+            }])
+           // Toast.fail("关注成功");
+          // this.props.history.push('/TabBarDisplay')
           }
+        } catch (error) {
+            Toast.fail(`${error}`);
+            this.setState({refreshing:false});
+        }
+    }
+    //下拉刷新
+    onRefresh =async()=>{
+        try {
+            this.setState({refreshing:true});
+            const result=await MessageData.getMessages(this.props.match.params.id);
+            this.setState({refreshing:false});
+            if(result.success===false){
+                Toast.fail(result.errorMessage);
+                if(result.errorCode===10004){
+                    this.props.history.replace('/');
+                }
+                return;
+            }
+            this.setState((preState)=>{
+                return{
+                    dataSource:preState.dataSource.cloneWithRows(result.data),
+                    refreshing:false
+                }
+            })
         } catch (error) {
             Toast.fail(`${error}`);
             this.setState({refreshing:false});
