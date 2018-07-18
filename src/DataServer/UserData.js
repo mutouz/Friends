@@ -150,7 +150,35 @@ class UserData {
             }
         }
     }
-    
+    //创建用户
+async createUser(nickname,sign,images){
+    try {
+        console.log(1111111111111111)
+        console.log(nickname+''+sign+''+images);
+        const formData=new FormData();
+        formData.append('access_token',localStorage.access_token);
+        formData.append('nickname',nickname);
+        
+        formData.append('sign',sign);
+        images.map((item,index)=>{
+            return formData.append('image${index}',item.file);
+        })
+        const res=await fetch(createUserUrl,{
+            method:'POST',
+            body:formData
+        });
+        const result=await res.json();
+        console.log(1111111111111111)
+        console.log(result);
+        return result;
+    } catch (error) {
+        console.log(error)
+        return{
+            success:false,
+            errorMessage:'网络错误'
+        }
+    }
+}
 }
 
 export default new UserData();

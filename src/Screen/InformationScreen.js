@@ -74,7 +74,7 @@ export default class RegisterScreen extends Component {
                     }
 
                     Toast.loading('内容上传中...',0);
-                    const resutl = await MessageData.postMessage(this.state.nickname,this.state.sign,this.state.files[0]);
+                    const resutl = await userData.createUser(this.state.nickname,this.state.sign,this.state.files);
                     Toast.hide();
                     if(resutl.success === false){
                         Toast.fail(resutl.errorMessage);
