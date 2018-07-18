@@ -14,6 +14,7 @@ import {
     ImagePicker
 } from 'antd-mobile';
 
+import {imgUrl} from '../DataServer/UrlConfig';
 import CustomManager from '../DataServer/CustomerData';
 
 export default class UpdateUserScreen extends Component {
@@ -25,7 +26,7 @@ export default class UpdateUserScreen extends Component {
             Toast.fail(result.errorMessage,1);
             return;
         }
-        this.setState({nickname:result.data.nickname,sign:result.data.sign})
+        this.setState({nickname:result.data.nickname,sign:result.data.sign,image:result.data.image})
         
     }
 
@@ -35,7 +36,8 @@ export default class UpdateUserScreen extends Component {
         this.state = {
             nickname:'',
             sign:'',
-            files:[]
+            // files:[]
+            image:''
         }
     }
 
@@ -49,11 +51,17 @@ export default class UpdateUserScreen extends Component {
                 >修改用户信息</NavBar>
                 <WhiteSpace />
                 <WingBlank>
-            <ImagePicker
+            {/* <ImagePicker
                 files={this.state.files}
                 onChange={(files)=>{this.setState({files})}}
                 selectable={this.state.files.length < 1}
-            />
+            /> */}
+             <ImagePicker
+                  
+                  files={[{url:imgUrl+this.state.image}]}
+                  onChange={(image)=>{this.setState({image})}}
+                  selectable={this.state.image.length <= 1}
+                  />
         </WingBlank>
 
              <InputItem
@@ -87,7 +95,7 @@ export default class UpdateUserScreen extends Component {
 
     submitMessage=async()=>{
         Toast.loading('内容上传中...',0);
-        const result=await CustomManager.updateUser(this.state.nickname,this.state.sign,this.state.files);
+        const result=await CustomManager.updateUser(this.state.nickname,this.state.sign,this.state.image);
         Toast.hide();
         if(result.success===false){
             Toast.fail(result.errorMessage);
