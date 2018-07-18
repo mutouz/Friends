@@ -77,6 +77,7 @@ class UserData {
     }
     //判断是否登陆
     ifToken(){
+        console.log(localStorage.access_token);
         if (localStorage.access_token==""|| !localStorage.access_token) {
             return false;
         }

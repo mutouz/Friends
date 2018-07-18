@@ -17,7 +17,7 @@ import {
 import {imgUrl} from '../DataServer/UrlConfig';
 import CustomManager from '../DataServer/CustomerData';
 
-
+import UserData from '../DataServer/UserData';
 
 export default class GetUserScreen extends Component {
 
@@ -113,6 +113,8 @@ export default class GetUserScreen extends Component {
                 <Button
                     type={'warning'}
                     onClick={async() => {
+                        UserData.tokenOut();
+                     
                         this.props.history.replace('/');
                     }}
                 >

@@ -18,9 +18,10 @@ import FollowCreateItem from '../ViewComponent/FollowCreateItem'
 export default class FollowCreate extends Component {
     async  componentWillMount() {
         console.log(UserData.ifToken());
-        // if (!UserData.ifToken()) {
-        //     this.props.history.replace('/');
-        // }
+        if (!UserData.ifToken()) {
+            this.props.history.replace('/');
+            return;
+        }
         ///////////////////////////////////
         /////得到传过来的id获取好友信息
         const result = await MessageData.getMessages(this.props.match.params.id);
