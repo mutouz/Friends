@@ -14,6 +14,7 @@ import{
     ImagePicker
 }from 'antd-mobile';
 import MessageData from '../DataServer/MessageData';
+import UserData from '../DataServer/UserData';
 export default class CreateMessageScreen extends Component {
     constructor(props) {
       super(props)
@@ -21,6 +22,13 @@ export default class CreateMessageScreen extends Component {
       this.state = {
          content:'',
          files:[]
+      }
+    }
+
+    //如何对需要登录的页面进行非登录访问
+    componentDidMount(){
+      if(!UserData.ifToken()){
+          this.props.history.replace('/');
       }
     }
     
