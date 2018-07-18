@@ -69,7 +69,7 @@ export default class FllowHome extends Component {
                         >发消息</span>
                     ]}
                 >
-                    朋友圈
+                    朋友
            </NavBar>
               
             </div>
