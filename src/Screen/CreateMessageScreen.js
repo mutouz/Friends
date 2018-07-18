@@ -37,14 +37,13 @@ export default class CreateMessageScreen extends Component {
           </NavBar>
           <WhiteSpace/>
           <List>
-              <InputItem
+              <TextareaItem
                 type={'text'}
                 value={this.state.content}
                 onChange={(content)=>{this.setState({content})}}
                 placeholder={'请输入内容'}
                 autoHeight={true}
-              >
-              </InputItem>
+              /> 
           </List>
           <WhiteSpace/>
           <WingBlank>
