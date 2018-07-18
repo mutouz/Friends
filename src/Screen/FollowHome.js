@@ -154,9 +154,9 @@ export default class FllowHome extends Component {
                 onSubmit={ this.onSearch}//查询到好友信息并且显示在页面上
               
               
-                onCancel={this.onCancel}
+                onCancel={this.onCancel}//取消按钮
        
-                onChange={(nickname)=>{this.setState({nickname})}}
+                onChange={(nickname)=>{this.setState({nickname})}}//文本框内容改变时将值填充
       />
          <ListView
             useBodyScroll={true}
