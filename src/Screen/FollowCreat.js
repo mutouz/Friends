@@ -8,6 +8,7 @@ import {
     WingBlank,
     InputItem,
     Toast,
+    Modal,
     PullToRefresh
 } from 'antd-mobile'
 import UserData from '../DataServer/UserData'
@@ -47,6 +48,7 @@ export default class FollowCreate extends Component {
             dataSource
         }
     }
+    //关注
     onFollow=async()=>{
         try {
              ///////////////////////////////////
@@ -63,8 +65,12 @@ export default class FollowCreate extends Component {
                 return;
             }
           else{
-            Toast.fail("关注成功");
-            this.props.history.push('/TabBarDisplay');
+            Modal.alert('关注成功','点击确认键返回',[{
+                text:'确认',
+                onPress:()=>{this.props.history.goBack()}
+            }])
+           // Toast.fail("关注成功");
+          // this.props.history.push('/TabBarDisplay')
           }
         } catch (error) {
             Toast.fail(`${error}`);
