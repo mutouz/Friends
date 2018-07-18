@@ -14,10 +14,23 @@ export default class AScreen extends Component {
                         a:1
                     }
                 }
+               
                 this.props.history.push('/b',{a:1});
             }}
+            //aaaaaaaaaaaaaaaaaaaaaaaa
+            //aaaaaaaaaaaaaaaaaaaaaaaa
+            //aaaaaaaaaaaaaaaaaaaaaaaa
+            //aaaaaaaaaaaaaaaaaaaaaaaa
+            //aaaaaaaaaaaaaaaaaaaaaaaa
+            //aaaaaaaaaaaaaaaaaaaaaaaa
+            //aaaaaaaaaaaaaaaaaaaaaaaa
+            //aaaaaaaaaaaaaaaaaaaaaaaa
+            //aaaaaaaaaaaaaaaaaaaaaaaa
+            //aaaaaaaaaaaaaaaaaaaaaaaa
         >toB</p>
+        
       </div>
+      
     )
   }
 }

@@ -1,56 +1,47 @@
 import{
-    createUserUrl,
-    getUserUrl,
-    updateUserUrl,
-    changePasswordUrl,
+    postMessageUrl,
+    deleteMessageUrl,
+    getMessageUrl,
+    homeMessageUrl
 }from './UrlConfig';
-
-class CustomerData{
-    async createUser(nickname,sign,image){
+class MessageData{
+    async postMessage(content,images){
         try {
-            const formData = new FormData();
-
+            const formData=new FormData();
             formData.append('access_token',localStorage.access_token);
-            formData.append('nickname',nickname);
-            formData.append('sign',sign);
-            image.map((item,index)=>{
-                return formData.append(`image${index}`,item.file);
-            })  
-
-            const res = await fetch(createUserUrl,{
+            formData.append('content',content);
+            images.map((item,index)=>{
+                return formData.append('image${index}',item.file);
+            })
+            const res=await fetch(postMessageUrl,{
                 method:'POST',
                 body:formData
             });
-
-            const result = await res.json();
-
+            const result=await res.json();
             console.log(result);
-
             return result;
-
         } catch (error) {
-            return {
+            return{
                 success:false,
                 errorMessage:'网络错误'
             }
         }
     }
-
-
-    async getUser(userId){
+    //删除
+    async deleteMessage(messageId){
         try {
-            const user={
-                access_token:localStorage.access_token
+            const deleteM={
+                access_token:localStorage.access_token,
+                messageId,
             }
-            const res=await fetch(getUserUrl,{
-              
+            const res=await fetch(deleteMessageUrl,{
                 method:'POST',
                 headers:{
                     'Accept':'application/json',
                     'Content-Type':'application/json'
                 },
-                body:JSON.stringify(user)
-            })
+                body:JSON.stringify(deleteM)
+            });
             const result=await res.json();
             return result;
         } catch (error) {
@@ -60,21 +51,21 @@ class CustomerData{
             }
         }
     }
-
-    async updateUser(nickname,sign){
+    //得到信息
+    async getMessages(userId,minId){
         try {
-            const upadte={
+            const get={
                 access_token:localStorage.access_token,
-                nickname,
-                sign
+                userId,
+                minId,
             }
-            const res=await fetch(updateUserUrl,{
+            const res=await fetch(getMessageUrl,{
                 method:'POST',
                 headers:{
                     'Accept':'application/json',
                     'Content-Type':'application/json'
                 },
-                body:JSON.stringify(upadte)
+                body:JSON.stringify(get)
             });
             const result=await res.json();
             return result;
@@ -86,23 +77,24 @@ class CustomerData{
         }
     }
 
-    async changepassword(old_password,new_password){
+    async homeMessage(minId){
         try {
-            const upadte={
+            const messages={
                 access_token:localStorage.access_token,
-                old_password,
-                new_password
+                minId
             }
-            const res=await fetch(changePasswordUrl,{
+            const res=await fetch(homeMessageUrl,{
                 method:'POST',
                 headers:{
                     'Accept':'application/json',
                     'Content-Type':'application/json'
                 },
-                body:JSON.stringify(upadte)
+                body:JSON.stringify(messages)
             });
             const result=await res.json();
+            console.log(result);
             return result;
+           
         } catch (error) {
             return{
                 success:false,
@@ -111,5 +103,5 @@ class CustomerData{
         }
     }
 }
+export default new MessageData();
 
-export default new CustomerData();
