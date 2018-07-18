@@ -16,12 +16,21 @@ import {
 
 import {imgUrl} from '../DataServer/UrlConfig';
 import CustomManager from '../DataServer/CustomerData';
+<<<<<<< HEAD
 
 import UserData from '../DataServer/UserData';
+=======
+import UserData from '../DataServer/UserData';
+
+>>>>>>> dev
 
 export default class GetUserScreen extends Component {
 
     async componentDidMount(){
+            console.log(UserData.ifToken());
+            if (!UserData.ifToken()) {
+                this.props.history.replace('/');
+            }
         const result=await CustomManager.getUser();
         console.log(result);
         if(result.success===false){
@@ -113,8 +122,13 @@ export default class GetUserScreen extends Component {
                 <Button
                     type={'warning'}
                     onClick={async() => {
+<<<<<<< HEAD
                         UserData.tokenOut();
                      
+=======
+                        const result=await UserData.tokenOut();
+                        console.log(result);
+>>>>>>> dev
                         this.props.history.replace('/');
                     }}
                 >

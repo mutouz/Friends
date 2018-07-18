@@ -6,12 +6,18 @@ import {
     PullToRefresh
 } from 'antd-mobile';
 
-import MessageData from '../DataServer/MessageData'
+import MessageData from '../DataServer/MessageData';
 import HomeMessageList from '../ViewComponent/HomeMessageList';
+import UserData from '../DataServer/UserData';
 
 export default class HomeMessageScreen extends Component {
     
     async componentDidMount(){
+        //验证是否已经登录，如果没有登录，不跳转其他页面
+        if(!UserData.ifToken()){
+            this.props.history.replace('/');
+            return;
+        }
         const result=await MessageData.homeMessage();
         console.log(result);
         if(result.success===false){
@@ -51,6 +57,7 @@ export default class HomeMessageScreen extends Component {
             if(result.success===false){
                 Toast.fail(result.errorMessage);
                 if(result.errorCode===10004){
+                    UserData.tokenOut();
                     this.props.history.replace('/');
                 }
                 return;
@@ -71,11 +78,11 @@ export default class HomeMessageScreen extends Component {
         try {
             Toast.loading('操作中', 0);
             const result = await MessageData.deleteMessage(messageId);
-            console.log(22222222222222)
             console.log(result)
             if (result.success == false) {
                 Toast.fail(result.errorMessage);
                 if (result.errorCode === 10004) {
+                    UserData.tokenOut();
                     this.props.history.replace('/');
                 }
                 console.log(this.state.result)
