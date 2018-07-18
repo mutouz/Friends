@@ -16,9 +16,16 @@ import {
 
 
 import CustomManager from '../DataServer/CustomerData';
+import UserData from '../DataServer/UserData';
 // import userManager from '../DataServer/CustomerData';
 
 export default class ChangePasswordScreen extends Component {
+    async  componentWillMount() {
+        console.log(UserData.ifToken());
+        if (!UserData.ifToken()) {
+            this.props.history.replace('/');
+        }
+    }
     constructor(props) {
       super(props)
     

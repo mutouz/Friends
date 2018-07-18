@@ -15,11 +15,16 @@ import {
 } from 'antd-mobile';
 
 import {imgUrl} from '../DataServer/UrlConfig';
+import UserData from '../DataServer/UserData';
 import CustomManager from '../DataServer/CustomerData';
 
 export default class UpdateUserScreen extends Component {
 
     async componentDidMount(){
+            console.log(UserData.ifToken());
+            if (!UserData.ifToken()) {
+                this.props.history.replace('/');
+            }
         const result=await CustomManager.getUser();
         console.log(result);
         if(result.success===false){
